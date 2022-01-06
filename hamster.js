@@ -200,9 +200,17 @@ function direction(event){
         hamster.req_d = "DOWN";
     } else if(key == 32){ //Space
         hamster.req_d = "STOP";
+    } else if(key == 65){ //A
+        diff--;
+        reset(diff, diff+1)
+    } else if(key == 83){ //S
+        diff++;
+        reset(diff, diff+1)
     } else if(key == 13){ //Enter
-        if(!dead) diff++;
-        reset(diff, diff+1);
+        if(gameOver){
+            if(!dead) diff++;
+            reset(diff, diff+1);
+        }
     }
 }
 
@@ -259,8 +267,11 @@ function draw(){
     ctx.font = "24px Comic Sans MS";
     ctx.fillText("Score: " + score, 2*tile, (gameHeight+1)*tile);
     ctx.fillText("Difficulty: " + diff, (gameWidth-5)*tile, (gameHeight+1)*tile);
+    ctx.fillText("Change diffulty with A/S keys", 8*tile, (gameHeight+2)*tile);
 
     if(gameOver){
+        ctx.fillStyle = "black";
+        ctx.fillRect(2*tile,(gameHeight+1)*tile, 20*tile, 2*tile);
         if(dead){
             ctx.fillStyle = "red";
             ctx.fillText("GAME OVER", 2*tile, (gameHeight+2)*tile);
